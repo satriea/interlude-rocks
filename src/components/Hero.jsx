@@ -36,7 +36,7 @@ const Hero = () => {
 
         {/* SUBTITLE */}
         <p className="mt-6 text-zinc-400 font-medium tracking-[0.4em] text-[10px] md:text-xs uppercase">
-          Exclusive Stories <span className="text-red-600 px-2">•</span> Raw Videos <span className="text-red-600 px-2">•</span> Pure Interludes
+          Exclusive Stories Test <span className="text-red-600 px-2">•</span> Raw Videos <span className="text-red-600 px-2">•</span> Pure Interludes
         </p>
 
         {/* ACTION BUTTONS - Boxy & Sharp */}
