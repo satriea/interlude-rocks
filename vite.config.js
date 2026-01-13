@@ -16,7 +16,7 @@ export default defineConfig({
         manualChunks: {
           react: ['react', 'react-dom'],
           ui: ['lucide-react', 'framer-motion'],
-          utils: ['axios', 'dayjs'],
+          //utils: ['axios', 'dayjs'],
         },
       },
     },
@@ -35,6 +35,7 @@ export default defineConfig({
     port: 1402,
   },
 
-  base: '/',
+  //base: '/',
+  base: '/interlude-rocks',
 
 });
