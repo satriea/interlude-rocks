@@ -35,7 +35,7 @@ export default defineConfig({
     port: 1402,
   },
 
-  //base: '/',
-  base: '/interlude-rocks',
+  base: '/',
+  //base: '/interlude-rocks',
 
 });
