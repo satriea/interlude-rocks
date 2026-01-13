@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@layer base {
+body {
+@apply bg-black text-gray-200 font-sans;
+}
+}
+
+
+@layer components {
+.neon-text {
+text-shadow: 0 0 6px #ff004c, 0 0 12px #ff004c;
+}
+
+
+.neon-border {
+box-shadow: 0 0 10px rgba(255,0,76,0.6);
+}
+}
