@@ -3,53 +3,53 @@ import { Search, XCircle } from "lucide-react"
 import VideoCard from "./VideoCard"
 import VideoModal from "./VideoModal"
 
+// DATA VIDEO - Langsung merujuk ke folder public/assets/...
 const videos = [
   {
     id: 1,
-    title: "Welcome To The Junggle",
+    title: "Welcome To The Jungle",
     band: "Guns N' Roses",
-    thumbnail: "/textures/gnr1.png",
-    videoUrl: "/public/videos/interluderocks.mp4", 
+    thumbnail: "/textures/Gnr1.png",
+    videoUrl: "/videos/Interluderocks.mp4", 
   },
   {
     id: 2,
     title: "Estranged",
     band: "Guns N' Roses",
-    thumbnail: "/textures/gnr2.png",
-    videoUrl: "/videos/estranged.mp4", 
+    thumbnail: "/textures/Gnr2.png",
+    videoUrl: "/videos/Estranged.mp4", 
   },
   {
     id: 3,
     title: "Rocket Queen",
     band: "Guns N' Roses",
-    thumbnail: "/textures/gnr3.png",
-    videoUrl: "/videos/rocketqueen.mp4",
+    thumbnail: "/textures/Gnr3.png",
+    videoUrl: "/videos/Rocketqueen.mp4",
   },
   {
     id: 4,
     title: "Alone",
     band: "Heart",
-    thumbnail: "/textures/heart1.png",
-    videoUrl: "/videos/alone.mp4",
+    thumbnail: "/textures/Heart1.png",
+    videoUrl: "/videos/Alone.mp4",
   },
   {
     id: 5,
     title: "Love Is On The Way",
     band: "Saigon Kick",
-    thumbnail: "/textures/saigonkick1.png",
-    videoUrl: "/videos/loveisontheway.mp4",
+    thumbnail: "/textures/Saigonkick1.png",
+    videoUrl: "/videos/Loveisontheway.mp4",
   },
   {
     id: 6,
     title: "Jump",
     band: "Van Halen",
-    thumbnail: "/textures/jump.png",
-    videoUrl: "/videos/jump.mp4",
+    thumbnail: "/textures/Jump.png",
+    videoUrl: "/videos/Jump.mp4",
   },
 ]
 
 export default function VideoSection() {
-  // State untuk mengontrol data video yang akan ditampilkan di pop-up
   const [activeVideo, setActiveVideo] = useState(null)
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -59,7 +59,7 @@ export default function VideoSection() {
     video.band.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
-return (
+  return (
     <section id="videos" className="relative py-32 bg-black overflow-hidden">
       
       {/* BACKGROUND DECORATION */}
@@ -68,7 +68,7 @@ return (
 
       <div className="relative max-w-7xl mx-auto px-6">
         
-        {/* SECTION HEADER & SEARCH BAR */}
+        {/* HEADER & SEARCH BAR */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 mb-20">
           <header className="relative">
             <div className="absolute -left-4 top-0 w-1 h-full bg-red-600" />
@@ -76,19 +76,15 @@ return (
               LATEST <br />
               <span className="text-blue-600 [text-shadow:2px_2px_0px_#fff]">INTERLUDES</span>
             </h2>
-            <p className="mt-4 text-zinc-500 font-bold uppercase tracking-[0.3em] text-[10px]">
-              Vocal • Guitar • Drums • 1980s
-            </p>
           </header>
 
-          {/* SEARCH BOX - Retro Terminal Style */}
           <div className="relative w-full max-w-md group">
             <div className="absolute -inset-1 bg-blue-600/20 group-focus-within:bg-blue-600/40 transition-all blur-sm" />
             <div className="relative flex items-center bg-zinc-900 border-2 border-zinc-800 p-1 group-focus-within:border-blue-500 transition-all">
               <Search className="ml-3 text-zinc-500" size={18} />
               <input 
                 type="text"
-                placeholder="FIND SIGNAL: BAND OR TITLE..."
+                placeholder="FIND SIGNAL..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full bg-transparent px-4 py-3 text-white font-mono text-xs focus:outline-none uppercase tracking-widest placeholder:text-zinc-700"
@@ -124,17 +120,14 @@ return (
             ))}
           </div>
         ) : (
-          /* NO RESULT MESSAGE */
           <div className="py-20 text-center border-2 border-dashed border-zinc-900">
             <h3 className="text-2xl font-black text-zinc-700 uppercase italic tracking-tighter">
               No Signal Found for "{searchQuery}"
             </h3>
-            <p className="mt-2 text-zinc-800 font-mono text-[10px] uppercase">Please adjust your frequency and try again.</p>
           </div>
         )}
       </div>
 
-      {/* POP-UP MODAL PLAYER */}
       <VideoModal 
         isOpen={!!activeVideo} 
         videoData={activeVideo} 
