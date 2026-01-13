@@ -1,6 +1,7 @@
 import { useState } from "react"
+import { Search, XCircle } from "lucide-react"
 import VideoCard from "./VideoCard"
-import VideoModal from "./VideoModal" // Pastikan kamu membuat file VideoModal.jsx setelah ini
+import VideoModal from "./VideoModal"
 
 const videos = [
   {
@@ -8,7 +9,7 @@ const videos = [
     title: "Welcome To The Junggle",
     band: "Guns N' Roses",
     thumbnail: "/textures/gnr1.png",
-    videoUrl: "/videos/interluderocks.mp4",
+    videoUrl: "/public/videos/interluderocks.mp4", 
   },
   {
     id: 2,
@@ -50,62 +51,87 @@ const videos = [
 export default function VideoSection() {
   // State untuk mengontrol data video yang akan ditampilkan di pop-up
   const [activeVideo, setActiveVideo] = useState(null)
+  const [searchQuery, setSearchQuery] = useState("")
 
-  return (
-    <section
-      id="videos"
-      className="relative py-32 bg-black overflow-hidden"
-    >
-      {/* BACKGROUND DECORATION - Diagonal Stripes */}
-      <div 
-        className="absolute inset-0 opacity-[0.03] pointer-events-none rotate-12 scale-150" 
-        style={{ 
-          backgroundImage: 'linear-gradient(45deg, #fff 25%, transparent 25%, transparent 50%, #fff 50%, #fff 75%, transparent 75%, transparent)', 
-          backgroundSize: '40px 40px'
-        }}
-      />
+  // LOGIC PENCARIAN
+  const filteredVideos = videos.filter((video) =>
+    video.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    video.band.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
+return (
+    <section id="videos" className="relative py-32 bg-black overflow-hidden">
+      
+      {/* BACKGROUND DECORATION */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none rotate-12 scale-150" 
+           style={{ backgroundImage: 'linear-gradient(45deg, #fff 25%, transparent 25%, transparent 50%, #fff 50%, #fff 75%, transparent 75%, transparent)' , backgroundSize: '40px 40px'}} />
 
       <div className="relative max-w-7xl mx-auto px-6">
         
-        {/* SECTION HEADER - Heavy Metal Style */}
-        <header className="relative mb-20">
-          <div className="absolute -left-4 top-0 w-1 h-full bg-red-600" />
-          
-          <h2 className="text-5xl md:text-6xl font-black text-white uppercase italic tracking-tighter leading-none">
-            LATEST <br />
-            <span className="text-blue-600 [text-shadow:2px_2px_0px_#fff]">INTERLUDES</span>
-          </h2>
-
-          <div className="mt-6 flex items-center gap-4">
-            <div className="h-[2px] w-24 bg-red-600" />
-            <p className="text-zinc-500 font-bold uppercase tracking-[0.3em] text-[10px]">
+        {/* SECTION HEADER & SEARCH BAR */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 mb-20">
+          <header className="relative">
+            <div className="absolute -left-4 top-0 w-1 h-full bg-red-600" />
+            <h2 className="text-5xl md:text-6xl font-black text-white uppercase italic tracking-tighter leading-none">
+              LATEST <br />
+              <span className="text-blue-600 [text-shadow:2px_2px_0px_#fff]">INTERLUDES</span>
+            </h2>
+            <p className="mt-4 text-zinc-500 font-bold uppercase tracking-[0.3em] text-[10px]">
               Vocal • Guitar • Drums • 1980s
             </p>
-          </div>
+          </header>
 
-          <p className="mt-8 max-w-xl text-zinc-400 font-medium leading-relaxed italic border-l-2 border-zinc-800 pl-6">
-            "Potongan riff, noise, dan jiwa rock era 80’s — singkat, padat,
-            dan penuh emosi yang meledak di panggung."
-          </p>
-        </header>
+          {/* SEARCH BOX - Retro Terminal Style */}
+          <div className="relative w-full max-w-md group">
+            <div className="absolute -inset-1 bg-blue-600/20 group-focus-within:bg-blue-600/40 transition-all blur-sm" />
+            <div className="relative flex items-center bg-zinc-900 border-2 border-zinc-800 p-1 group-focus-within:border-blue-500 transition-all">
+              <Search className="ml-3 text-zinc-500" size={18} />
+              <input 
+                type="text"
+                placeholder="FIND SIGNAL: BAND OR TITLE..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-transparent px-4 py-3 text-white font-mono text-xs focus:outline-none uppercase tracking-widest placeholder:text-zinc-700"
+              />
+              {searchQuery && (
+                <button onClick={() => setSearchQuery("")} className="mr-3 text-zinc-500 hover:text-red-500">
+                  <XCircle size={18} />
+                </button>
+              )}
+            </div>
+            {/* Status Indicator */}
+            <div className="mt-2 flex justify-between items-center px-1">
+               <span className="text-[8px] font-mono text-zinc-600 uppercase tracking-tighter">Database: Online</span>
+               <span className="text-[8px] font-mono text-blue-900 uppercase tracking-tighter">Result: {filteredVideos.length} Items</span>
+            </div>
+          </div>
+        </div>
 
         {/* VIDEO GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-          {videos.map((video) => (
-            <div key={video.id} className="group relative">
-              {/* Decorative Frame Behind Card */}
-              <div className="absolute -inset-2 border-2 border-blue-600/20 group-hover:border-red-600/40 transition-colors duration-500 -rotate-1" />
-              
-              <VideoCard
-                title={video.title}
-                band={video.band}
-                thumbnail={video.thumbnail}
-                videoUrl={video.videoUrl}
-                onOpen={(data) => setActiveVideo(data)} // Mengirim data ke state saat diklik
-              />
-            </div>
-          ))}
-        </div>
+        {filteredVideos.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+            {filteredVideos.map((video) => (
+              <div key={video.id} className="group relative">
+                <div className="absolute -inset-2 border-2 border-blue-600/20 group-hover:border-red-600/40 transition-colors duration-500 -rotate-1" />
+                <VideoCard
+                  title={video.title}
+                  band={video.band}
+                  thumbnail={video.thumbnail}
+                  videoUrl={video.videoUrl}
+                  onOpen={(data) => setActiveVideo(data)}
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          /* NO RESULT MESSAGE */
+          <div className="py-20 text-center border-2 border-dashed border-zinc-900">
+            <h3 className="text-2xl font-black text-zinc-700 uppercase italic tracking-tighter">
+              No Signal Found for "{searchQuery}"
+            </h3>
+            <p className="mt-2 text-zinc-800 font-mono text-[10px] uppercase">Please adjust your frequency and try again.</p>
+          </div>
+        )}
       </div>
 
       {/* POP-UP MODAL PLAYER */}

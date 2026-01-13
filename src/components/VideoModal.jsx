@@ -7,7 +7,7 @@ export default function VideoModal({ isOpen, videoData, onClose }) {
     <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4">
       {/* Overlay Gelap */}
       <div 
-        className="absolute inset-0 bg-black/95 backdrop-blur-sm" 
+        className="absolute inset-0" 
         onClick={onClose} 
       />
 
@@ -15,7 +15,7 @@ export default function VideoModal({ isOpen, videoData, onClose }) {
       <div className="relative w-full max-w-4xl bg-[#0a0a0a] border-2 border-blue-600 shadow-[0_0_50px_rgba(37,99,235,0.3)] animate-in zoom-in duration-300">
         
         {/* Bar Header Modal */}
-        <div className="flex items-center justify-between bg-blue-600 px-4 py-2">
+        <div className="flex items-center justify-between bg-blue-900 px-4 py-2">
           <div className="flex items-center gap-3">
             <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
             <span className="text-[10px] font-black text-white uppercase tracking-widest font-mono">
