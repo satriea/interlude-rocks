@@ -11,7 +11,7 @@ const Hero = () => {
         preload="auto"
         className="absolute inset-0 w-full h-full object-cover opacity-50 grayscale contrast-125"
       >
-        <source src="/public/videos/interluderocks.mp4" type="video/mp4" />
+        <source src="/videos/interluderocks.mp4" type="video/mp4" />
       </video>
 
       {/* NOISE & SCANLINE EFFECT (Khas TV Tabung 80-an) */}
